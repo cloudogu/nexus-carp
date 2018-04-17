@@ -5,7 +5,7 @@
   branch = "master"
   name = "github.com/cloudogu/carp"
   packages = ["."]
-  revision = "4b24c22dfe4cc41cbe5d9bbba185cc612b409e9e"
+  revision = "200712939c99a06fd9c8277973b2f8023f799db4"
 
 [[projects]]
   name = "github.com/cloudogu/go-cas"
