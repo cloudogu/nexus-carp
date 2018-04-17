@@ -13,6 +13,12 @@
   revision = "91363f7a52d9b582b6c7f4281238c99f81789d1a"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/cloudogu/go-health"
+  packages = ["."]
+  revision = "99e2f66e2c7a3c1b1f4d9983c3f62df80e1cfc70"
+
+[[projects]]
   name = "github.com/cloudogu/nexus-scripting"
   packages = ["manager"]
   revision = "3a4b67399f290aefdf0be9a9b418a2f637d8fad2"
@@ -75,6 +81,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b7a3974088629a2f6f3d6485fecfa9a7db3ccdc992c0c0412748e94424b07a80"
+  inputs-digest = "23a6acb224bcc7f026ac1fa3f08c8325b806610cc51b1bd743bcd276403ff77b"
   solver-name = "gps-cdcl"
   solver-version = 1
