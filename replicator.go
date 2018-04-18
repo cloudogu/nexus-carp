@@ -51,6 +51,7 @@ func createNexusCarpUser(attributes carp.UserAttibutes) *NexusCarpUser {
 		FirstName: firstOrEmpty(attributes["givenName"]),
 		LastName:  firstOrEmpty(attributes["surname"]),
 		Email:     firstOrEmpty(attributes["mail"]),
+		Groups:    attributes["groups"],
 	}
 }
 
@@ -66,4 +67,5 @@ type NexusCarpUser struct {
 	FirstName string
 	LastName  string
 	Email     string
+	Groups    []string
 }
