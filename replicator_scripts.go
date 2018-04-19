@@ -38,7 +38,7 @@ for (group in carpUser.Groups){
   try{
     currentRole = authorizationManager.getRole(group)
   } catch (NoSuchRoleException noSuchRoleException){
-    println("Role " + group + " does not exist yet. Creating...")
+    log.info('creating role ' + group)
     //TODO: add privileges if group is cesManager?
     def newRole = new Role(
       roleId: group,
@@ -52,10 +52,10 @@ for (group in carpUser.Groups){
     authorizationManager.addRole(newRole)
     currentRole = newRole
   }
+  log.info('Adding role ' + currentRole + ' to user ' + user)
   user = securitySystem.getUser(carpUser.Username)
   presentRole = authorizationManager.getRole(currentRole.getRoleId())
   user.addRole(new RoleIdentifier(presentRole.getSource(), presentRole.getRoleId()))
   securitySystem.updateUser(user)
-  println("Set role " + currentRole + " for user " + user)
 }
 `
