@@ -1,6 +1,7 @@
 import groovy.json.JsonSlurper
 import org.sonatype.nexus.security.user.UserNotFoundException
 import org.sonatype.nexus.security.role.*
+import org.apache.commons.lang.*
 
 // parse json formatted carp user, which is send as argument for the script
 def carpUser = new JsonSlurper().parseText(args)
@@ -8,8 +9,8 @@ def carpUser = new JsonSlurper().parseText(args)
 // use undocumented getSecuritySystem to check and update existing users
 def securitySystem = security.getSecuritySystem()
 
-// every one should be an admin ;)
-def adminRole = ['nx-admin']
+// default role for new users
+def defaultRole = ['cesUser']
 
 try {
   log.info('update user ' + carpUser.Username)
@@ -17,15 +18,15 @@ try {
   user.setFirstName(carpUser.FirstName)
   user.setLastName(carpUser.LastName)
   user.setEmailAddress(carpUser.Email)
-  // set active? password?
+  // active status and password are not changed
   securitySystem.updateUser(user)
 } catch (UserNotFoundException ex) {
   log.info('create user ' + carpUser.username)
 
   // user not found, create a new one
   // id, firstName, lastName, Email, active, password, arrayOfRoles
-  // what about the password, null is not accepted ? generate random ?
-  security.addUser(carpUser.Username, carpUser.FirstName, carpUser.LastName, carpUser.Email, true, "secretPwd", adminRole)
+  String randomUserPassword = org.apache.commons.lang.RandomStringUtils.random(16, true, true)
+  security.addUser(carpUser.Username, carpUser.FirstName, carpUser.LastName, carpUser.Email, true, randomUserPassword, defaultRole)
 }
 
 // map groups to nexus roles
@@ -36,7 +37,6 @@ for (group in carpUser.Groups){
     currentRole = authorizationManager.getRole(group)
   } catch (NoSuchRoleException noSuchRoleException){
     log.info('creating role ' + group)
-    //TODO: add privileges if group is cesManager?
     def newRole = new Role(
       roleId: group,
       source: "",
