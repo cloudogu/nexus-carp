@@ -52,8 +52,8 @@ for (group in carpUser.Groups){
     authorizationManager.addRole(newRole)
     currentRole = newRole
   }
-  log.info('Adding role ' + currentRole + ' to user ' + user)
   user = securitySystem.getUser(carpUser.Username)
+  log.info('Adding role ' + currentRole.getRoleId() + ' to user ' + user.getUserId())
   presentRole = authorizationManager.getRole(currentRole.getRoleId())
   user.addRole(new RoleIdentifier(presentRole.getSource(), presentRole.getRoleId()))
   securitySystem.updateUser(user)
