@@ -17,6 +17,7 @@ func main() {
 	url := env("NEXUS_URL")
 	username := env("NEXUS_USER")
 	password := env("NEXUS_PASSWORD")
+	cesAdminGroup := env("CES_ADMIN_GROUP")
 
 	configuration, err := carp.ReadConfiguration()
 	if err != nil {
@@ -32,7 +33,7 @@ func main() {
 	glog.Infof("start nexus-carp %s", Version)
 
 	userReplicator := NewUserReplicator(url, username, password)
-	err = userReplicator.CreateScript()
+	err = userReplicator.CreateScript(cesAdminGroup)
 	if err != nil {
 		glog.Fatal("failed to create user replication script:", err)
 	}

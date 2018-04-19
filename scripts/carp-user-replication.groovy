@@ -31,6 +31,11 @@ try {
 
 // map groups to nexus roles
 def authorizationManager = securitySystem.getAuthorizationManager('default')
+// remove user from admin group; will be added again, if still in it
+user = securitySystem.getUser(carpUser.Username)
+user.removeRole(new RoleIdentifier("default", "cesAdminGroup"))
+securitySystem.updateUser(user)
+// add roles to user
 for (group in carpUser.Groups){
   Role currentRole
   try{

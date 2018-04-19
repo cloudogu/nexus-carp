@@ -6,6 +6,7 @@ import (
 	"github.com/cloudogu/nexus-scripting/manager"
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
+  "strings"
 )
 
 const scriptName = "carp-user-replication"
@@ -22,8 +23,10 @@ type UserReplicator struct {
 	script  *manager.Script
 }
 
-func (replicator *UserReplicator) CreateScript() error {
-	script, err := replicator.manager.Create(scriptName, CARP_USER_REPLICATION)
+func (replicator *UserReplicator) CreateScript(cesAdminGroup string) error {
+  userReplicationScript := CARP_USER_REPLICATION
+  userReplicationScript = strings.Replace(userReplicationScript, "cesAdminGroup", cesAdminGroup, -1)
+	script, err := replicator.manager.Create(scriptName, userReplicationScript)
 	if err != nil {
 		return errors.Wrap(err, "failed to create user replication script")
 	}
