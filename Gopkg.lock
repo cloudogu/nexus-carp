@@ -5,24 +5,25 @@
   branch = "master"
   name = "github.com/cloudogu/carp"
   packages = ["."]
-  revision = "200712939c99a06fd9c8277973b2f8023f799db4"
+  revision = "d5379e12db359cd0453bb142396fb2b4cdbee7bb"
 
 [[projects]]
   name = "github.com/cloudogu/go-cas"
   packages = ["."]
-  revision = "91363f7a52d9b582b6c7f4281238c99f81789d1a"
+  revision = "a0fd407add0fe85f8f1807adec5f9ec84e5b0a9e"
+  version = "v2.2.0"
 
 [[projects]]
   branch = "master"
   name = "github.com/cloudogu/go-health"
   packages = ["."]
-  revision = "99e2f66e2c7a3c1b1f4d9983c3f62df80e1cfc70"
+  revision = "e96095b4c224b2001454d236222acfc5dd522c98"
 
 [[projects]]
   name = "github.com/cloudogu/nexus-scripting"
   packages = ["manager"]
-  revision = "3a4b67399f290aefdf0be9a9b418a2f637d8fad2"
-  version = "v0.1.0"
+  revision = "05f2ef2e639220a66a66e205e9358f9c8d47ed15"
+  version = "v0.1.1"
 
 [[projects]]
   branch = "master"
@@ -35,6 +36,12 @@
   packages = ["."]
   revision = "ea4d1f681babbce9545c9c5f3d5194a789c89f5b"
   version = "v1.2.0"
+
+[[projects]]
+  name = "github.com/patrickmn/go-cache"
+  packages = ["."]
+  revision = "a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0"
+  version = "v2.1.0"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -61,7 +68,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "d6449816ce06963d9d136eee5a56fca5b0616e7e"
+  revision = "94e3fad7f1b4eed4ec147751ad6b4c4d33f00611"
 
 [[projects]]
   branch = "master"
@@ -70,7 +77,7 @@
     "unix",
     "windows"
   ]
-  revision = "2f57af4873d00d535c5c9028850aa2152e6a5566"
+  revision = "d0faeb539838e250bd0a9db4182d48d4a1915181"
 
 [[projects]]
   name = "gopkg.in/yaml.v2"
