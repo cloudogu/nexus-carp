@@ -5,13 +5,13 @@
   branch = "master"
   name = "github.com/cloudogu/carp"
   packages = ["."]
-  revision = "d5379e12db359cd0453bb142396fb2b4cdbee7bb"
+  revision = "8417d6b8979a1a0764cc555a38367d97af177d8b"
 
 [[projects]]
   name = "github.com/cloudogu/go-cas"
   packages = ["."]
-  revision = "a0fd407add0fe85f8f1807adec5f9ec84e5b0a9e"
-  version = "v2.2.0"
+  revision = "5d47e3c421bfbfe95fbef4d27c4b44da92af6619"
+  version = "v2.2.1"
 
 [[projects]]
   branch = "master"
@@ -68,7 +68,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "94e3fad7f1b4eed4ec147751ad6b4c4d33f00611"
+  revision = "1a580b3eff7814fc9b40602fd35256c63b50f491"
 
 [[projects]]
   branch = "master"
@@ -77,7 +77,7 @@
     "unix",
     "windows"
   ]
-  revision = "d0faeb539838e250bd0a9db4182d48d4a1915181"
+  revision = "7c87d13f8e835d2fb3a70a2912c811ed0c1d241b"
 
 [[projects]]
   name = "gopkg.in/yaml.v2"
