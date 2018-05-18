@@ -24,7 +24,7 @@ docker-compose up -d
 * open Nexus at http://localhost:8081
 * sign in with admin and admin123
 * enable "RUT Auth Realm" at Security->Realms
-* Add "RUT Auth" Capability with X-CARP-Authentication as Header
+* Add "RUT Auth" Capability with `X-CARP-Authentication` as Header
 * Checkout nexus-carp
 ```bash
 mkdir -p ${GOPATH}/src/github.com/cloudogu
