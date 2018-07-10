@@ -40,7 +40,7 @@ func main() {
 
 	configuration.UserReplicator = userReplicator.Replicate
 
-	server, err := carp.NewServer(configuration)
+	server, err := carp.NewServer(configuration, true)
 	if err != nil {
 		panic(err)
 	}
