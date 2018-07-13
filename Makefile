@@ -25,4 +25,4 @@ package: build
 
 clean:
 	rm -rf $(TARGETDIR)
-	rm Gopkg.lock
+	rm -f Gopkg.lock
