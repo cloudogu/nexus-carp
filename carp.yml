@@ -5,4 +5,4 @@ target-url: http://localhost:8081
 skip-ssl-verification: true
 port: 9090
 principal-header: X-CARP-Authentication
-forwardUnauthenticatedRESTRequests: true
+forward-unauthenticated-rest-requests: true
