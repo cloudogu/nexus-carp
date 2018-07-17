@@ -1,5 +1,5 @@
 APP=nexus-carp
-VERSION=0.2.2
+VERSION=0.2.3
 
 TARGETDIR=target
 PKG=${APP}-${VERSION}.tar.gz
