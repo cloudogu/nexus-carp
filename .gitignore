@@ -101,3 +101,6 @@ fabric.properties
 vendor
 target
 .idea
+
+# Edit Gopkg.toml, then run 'dep ensure' to autogenerate this file
+Gopkg.lock
