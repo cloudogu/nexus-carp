@@ -11,8 +11,9 @@ import (
 
 const scriptName = "carp-user-replication"
 
-func NewUserReplicator(url string, username string, password string) *UserReplicator {
+func NewUserReplicator(url string, username string, password string, timeout int) *UserReplicator {
 	manager := manager.New(url, username, password)
+	manager.WithTimeout(timeout)
 	return &UserReplicator{
 		manager: manager,
 	}
