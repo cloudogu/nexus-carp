@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"os"
+	"strconv"
 
 	"github.com/cloudogu/carp"
 	"github.com/cloudogu/go-health"
@@ -18,6 +19,7 @@ func main() {
 	username := env("NEXUS_USER")
 	password := env("NEXUS_PASSWORD")
 	cesAdminGroup := env("CES_ADMIN_GROUP")
+	timeout := getTimeoutOrDefault("HTTP_REQUEST_TIMEOUT", 30)
 
 	configuration, err := carp.ReadConfiguration()
 	if err != nil {
@@ -32,7 +34,7 @@ func main() {
 
 	glog.Infof("start nexus-carp %s", Version)
 
-	userReplicator := NewUserReplicator(url, username, password)
+	userReplicator := NewUserReplicator(url, username, password, timeout)
 	err = userReplicator.CreateScript(cesAdminGroup)
 	if err != nil {
 		glog.Fatal("failed to create user replication script:", err)
@@ -46,6 +48,18 @@ func main() {
 	}
 
 	server.ListenAndServe()
+}
+
+func getTimeoutOrDefault(variableName string, defaultValue int) int {
+	value := os.Getenv(variableName)
+	if value == "" {
+		return defaultValue
+	}
+	timeoutFromEnv, err := strconv.Atoi(value)
+	if err != nil {
+		return defaultValue
+	}
+	return timeoutFromEnv
 }
 
 func env(key string) string {
