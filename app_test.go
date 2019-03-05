@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"testing"
 
+	"net/url"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -15,8 +17,9 @@ func TestGetLogoutJSInjectResponseModifier(t *testing.T) {
 	responseModifier := getLogoutJSInjectResponseModifier(logoutUrl)
 	b := bytes.NewBufferString("<html><body>stuff</body></html>")
 	res := http.Response{
-		Body:   ioutil.NopCloser(b),
-		Header: http.Header{},
+		Body:    ioutil.NopCloser(b),
+		Header:  http.Header{},
+		Request: &http.Request{URL: &url.URL{Path: "/"}},
 	}
 	res.Header.Set("Content-Type", "text/html")
 
@@ -28,19 +31,48 @@ func TestGetLogoutJSInjectResponseModifier(t *testing.T) {
 	assert.Equal(t, string(newBytes), fmt.Sprintf("<html><body>stuff%s</body></html>", injectedJSCode))
 }
 
-func TestGetLogoutJSInjectResponseModifierWithWrongContent(t *testing.T) {
-
-	responseModifier := getLogoutJSInjectResponseModifier("test")
-	originalBodyContent := "<html><body>stuff</body></html>"
-	b := bytes.NewBufferString(originalBodyContent)
+func TestIsJSInjectionRequiredRootPath(t *testing.T) {
 	res := http.Response{
-		Body: ioutil.NopCloser(b),
+		Request: &http.Request{URL: &url.URL{Path: "/"}},
+		Header:  http.Header{},
+	}
+	res.Header.Set("Content-Type", "text/html")
+
+	injectRequired := isJSInjectionRequired(&res)
+
+	assert.True(t, injectRequired)
+}
+
+func TestIsJSInjectionRequiredNexusPath(t *testing.T) {
+	res := http.Response{
+		Request: &http.Request{URL: &url.URL{Path: "/nexus/"}},
+		Header:  http.Header{},
+	}
+	res.Header.Set("Content-Type", "text/html")
+
+	injectRequired := isJSInjectionRequired(&res)
+
+	assert.True(t, injectRequired)
+}
+
+func TestIsJSInjectionRequiredWrongPath(t *testing.T) {
+	res := http.Response{
+		Request: &http.Request{URL: &url.URL{Path: "/wrongPath"}},
+		Header:  http.Header{},
+	}
+	res.Header.Set("Content-Type", "text/html")
+
+	injectRequired := isJSInjectionRequired(&res)
+
+	assert.False(t, injectRequired)
+}
+
+func TestIsJSInjectionRequiredMissingContentType(t *testing.T) {
+	res := http.Response{
+		Request: &http.Request{URL: &url.URL{Path: "/"}},
 	}
 
-	err := responseModifier(&res)
+	injectRequired := isJSInjectionRequired(&res)
 
-	assert.Nil(t, err)
-	newBytes, err := ioutil.ReadAll(res.Body)
-	assert.Nil(t, err)
-	assert.Len(t, newBytes, len(originalBodyContent))
+	assert.False(t, injectRequired)
 }

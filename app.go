@@ -108,7 +108,7 @@ const injectedJSCodeTmpl = "<script>" +
 
 func getLogoutJSInjectResponseModifier(logoutUrl string) func(resp *http.Response) error {
 	return func(resp *http.Response) error {
-		if resp.Header.Get("Content-Type") == "text/html" {
+		if isJSInjectionRequired(resp) {
 			b, err := ioutil.ReadAll(resp.Body)
 			if err != nil {
 				return err
@@ -122,4 +122,18 @@ func getLogoutJSInjectResponseModifier(logoutUrl string) func(resp *http.Respons
 		}
 		return nil
 	}
+}
+
+func isJSInjectionRequired(resp *http.Response) bool {
+	injectPaths := []string{"/nexus/", "/"}
+	return resp.Header.Get("Content-Type") == "text/html" && contains(injectPaths, resp.Request.URL.Path)
+}
+
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }
