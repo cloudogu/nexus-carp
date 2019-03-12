@@ -1,9 +1,14 @@
 package main
 
 import (
+	"bytes"
 	"flag"
+	"io/ioutil"
+	"net/http"
 	"os"
 	"strconv"
+
+	"fmt"
 
 	"github.com/cloudogu/carp"
 	"github.com/cloudogu/go-health"
@@ -41,6 +46,7 @@ func main() {
 	}
 
 	configuration.UserReplicator = userReplicator.Replicate
+	configuration.ResponseModifier = getLogoutJSInjectResponseModifier(configuration.CasUrl + "/logout")
 
 	server, err := carp.NewServer(configuration)
 	if err != nil {
@@ -86,4 +92,48 @@ func waitUntilNexusBecomesReady(url string, username string, password string) er
 		return err
 	}
 	return nil
+}
+
+const injectedJSCodeTmpl = "<script>" +
+	"var timer = setInterval(function () {" +
+	"var signoutElements = document.querySelectorAll(\"span[id^='nx-header-signout-']\");" +
+	"if (signoutElements.length == 0) { return; }" +
+	"signoutElements[0].addEventListener('click', function () { " +
+	"window.location.href = '%s';" +
+	"return true;" +
+	"});" +
+	"clearInterval(timer);" +
+	"}, 500);" +
+	"</script>"
+
+func getLogoutJSInjectResponseModifier(logoutUrl string) func(resp *http.Response) error {
+	return func(resp *http.Response) error {
+		if isJSInjectionRequired(resp) {
+			b, err := ioutil.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			injectedJSCode := fmt.Sprintf(injectedJSCodeTmpl, logoutUrl)
+			b = bytes.Replace(b, []byte("</body>"), []byte(injectedJSCode+"</body>"), 1)
+			body := ioutil.NopCloser(bytes.NewReader(b))
+			resp.Body = body
+			resp.ContentLength = int64(len(b))
+			resp.Header.Set("Content-Length", strconv.Itoa(len(b)))
+		}
+		return nil
+	}
+}
+
+func isJSInjectionRequired(resp *http.Response) bool {
+	injectPaths := []string{"/nexus/", "/"}
+	return resp.Header.Get("Content-Type") == "text/html" && contains(injectPaths, resp.Request.URL.Path)
+}
+
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }

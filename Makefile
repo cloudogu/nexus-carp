@@ -1,5 +1,5 @@
 APP=nexus-carp
-VERSION=0.3.0
+VERSION=0.3.1
 
 TARGETDIR=target
 PKG=${APP}-${VERSION}.tar.gz
@@ -25,4 +25,3 @@ package: build
 
 clean:
 	rm -rf $(TARGETDIR)
-	rm -f Gopkg.lock

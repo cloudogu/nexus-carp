@@ -4,7 +4,7 @@ CAS Authentication Reverse Proxy for Sonatype Nexus.
 
 ## Requirements
 
-* [Go](https://golang.org/) >= 1.10
+* [Go](https://golang.org/) = 1.9.x
 * [Dep](https://golang.github.io/dep/)
 
 ## Testing and Development
