@@ -3,11 +3,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:8747dbc1be0db39e1f03961d1d7301105515f632ba16cbf68b943bf64918fbb1"
+  digest = "1:3d99f20d91e1316aaf98852e1ac3e93cb0cdf092e797634298de106b30438376"
   name = "github.com/cloudogu/carp"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ec824be880813e1cf21545d7358b6c5ec2900118"
+  revision = "caa2b3a66eede5b1757c331318623a109d323a84"
 
 [[projects]]
   branch = "develop"
