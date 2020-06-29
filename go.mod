@@ -3,7 +3,7 @@ module github.com/cloudogu/nexus-carp
 go 1.12
 
 require (
-	github.com/cloudogu/carp v0.0.0-20200629110837-44e73bfaed8a
+	github.com/cloudogu/carp v0.0.0-20200629112441-0e23df31392f
 	github.com/cloudogu/go-cas v2.2.2+incompatible
 	github.com/cloudogu/go-health v0.0.0-20180424113502-e96095b4c224
 	github.com/cloudogu/nexus-scripting v0.2.0
