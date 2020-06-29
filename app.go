@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"flag"
 	"github.com/cloudogu/carp"
-	"github.com/pkg/errors"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -17,10 +16,8 @@ import (
 )
 
 var Version = "x.y.z-dev"
-var format = logging.MustStringFormatter(
-	`%{time:2006-01-02 15:04:05.000-0700} %{level:.4s} [%{shortfile}] %{message}`,
-)
-var log = logging.MustGetLogger("nexus-carp")
+
+var log *logging.Logger
 
 func main() {
 	flag.Parse()
@@ -31,14 +28,12 @@ func main() {
 	cesAdminGroup := env("CES_ADMIN_GROUP")
 	timeout := getTimeoutOrDefault("HTTP_REQUEST_TIMEOUT", 30)
 
-	carp.SetLogger(logging.MustGetLogger("carp"))
-
-	configuration, err := carp.ReadConfiguration()
+	configuration, err := carp.InitializeAndReadConfiguration()
 	if err != nil {
 		log.Fatal("failed to read configuration:", err)
 	}
 
-	prepareLogger(configuration)
+	log = logging.MustGetLogger("nexus-carp")
 
 	log.Infof("wait until nexus is ready")
 	err = waitUntilNexusBecomesReady(url, username, password)
@@ -63,22 +58,6 @@ func main() {
 	}
 
 	server.ListenAndServe()
-}
-
-func prepareLogger(configuration carp.Configuration) error {
-	backend := logging.NewLogBackend(os.Stderr, "", 0)
-	backendLeveled := logging.AddModuleLevel(backend)
-
-	level, err := logging.LogLevel(configuration.LogLevel)
-	if err != nil {
-		return errors.Wrap(err, "could not prepare logger")
-	}
-	backendLeveled.SetLevel(level, "")
-
-	formatter := logging.NewBackendFormatter(backend, format)
-	logging.SetBackend(formatter)
-
-	return nil
 }
 
 func getTimeoutOrDefault(variableName string, defaultValue int) int {
