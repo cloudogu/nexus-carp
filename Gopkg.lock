@@ -2,12 +2,12 @@
 
 
 [[projects]]
-  branch = "master"
-  digest = "1:548f89d972f7030b50ce8aad1f1b80b2175f3d404c49074abb8050307644450b"
+  branch = "feature/6_change_logger"
+  digest = "1:f0ad173500114803f7f5e76521437fa72adbdebb7550e1b1cb70fc0bf28b31a3"
   name = "github.com/cloudogu/carp"
   packages = ["."]
   pruneopts = "UT"
-  revision = "3ae0ef776b2f7103f67b41bfa5f57e5aacf5bedb"
+  revision = "0e23df31392f15ed3943a539a0b8e9740e97a576"
 
 [[projects]]
   digest = "1:a1ee9265080765f75b3c35eed66a11f796d1a4bb042dd53e50e97fa08d1c18b2"
