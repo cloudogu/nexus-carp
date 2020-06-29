@@ -3,6 +3,8 @@ package main
 import (
 	"bytes"
 	"flag"
+	"github.com/cloudogu/carp"
+	"github.com/pkg/errors"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -10,12 +12,15 @@ import (
 
 	"fmt"
 
-	"github.com/cloudogu/carp"
 	"github.com/cloudogu/go-health"
-	"github.com/golang/glog"
+	logging "github.com/op/go-logging"
 )
 
 var Version = "x.y.z-dev"
+var format = logging.MustStringFormatter(
+	`%{time:2006-01-02 15:04:05.000-0700} %{level:.4s} [%{shortfile}] %{message}`,
+)
+var log = logging.MustGetLogger("nexus-carp")
 
 func main() {
 	flag.Parse()
@@ -26,23 +31,27 @@ func main() {
 	cesAdminGroup := env("CES_ADMIN_GROUP")
 	timeout := getTimeoutOrDefault("HTTP_REQUEST_TIMEOUT", 30)
 
+	carp.SetLogger(logging.MustGetLogger("carp"))
+
 	configuration, err := carp.ReadConfiguration()
 	if err != nil {
-		glog.Fatal("failed to read configuration:", err)
+		log.Fatal("failed to read configuration:", err)
 	}
 
-	glog.Infof("wait until nexus is ready")
+	prepareLogger(configuration)
+
+	log.Infof("wait until nexus is ready")
 	err = waitUntilNexusBecomesReady(url, username, password)
 	if err != nil {
-		glog.Fatal("nexus does not become ready:", err)
+		log.Fatal("nexus does not become ready:", err)
 	}
 
-	glog.Infof("start nexus-carp %s", Version)
+	log.Infof("start nexus-carp %s", Version)
 
 	userReplicator := NewUserReplicator(url, username, password, timeout)
 	err = userReplicator.CreateScript(cesAdminGroup)
 	if err != nil {
-		glog.Fatal("failed to create user replication script:", err)
+		log.Fatal("failed to create user replication script:", err)
 	}
 
 	configuration.UserReplicator = userReplicator.Replicate
@@ -54,6 +63,22 @@ func main() {
 	}
 
 	server.ListenAndServe()
+}
+
+func prepareLogger(configuration carp.Configuration) error {
+	backend := logging.NewLogBackend(os.Stderr, "", 0)
+	backendLeveled := logging.AddModuleLevel(backend)
+
+	level, err := logging.LogLevel(configuration.LogLevel)
+	if err != nil {
+		return errors.Wrap(err, "could not prepare logger")
+	}
+	backendLeveled.SetLevel(level, "")
+
+	formatter := logging.NewBackendFormatter(backend, format)
+	logging.SetBackend(formatter)
+
+	return nil
 }
 
 func getTimeoutOrDefault(variableName string, defaultValue int) int {
@@ -71,7 +96,7 @@ func getTimeoutOrDefault(variableName string, defaultValue int) int {
 func env(key string) string {
 	value := os.Getenv(key)
 	if value == "" {
-		glog.Fatalf("environment variable %s is not set", key)
+		log.Fatalf("environment variable %s is not set", key)
 	}
 	return value
 }
@@ -85,7 +110,7 @@ func waitUntilNexusBecomesReady(url string, username string, password string) er
 	watcher := health.NewWatcher()
 	watcher.RecheckLimit = 300
 	watcher.ResultListener = func(counter int, err error) {
-		glog.Infof("nexus health check number %v failed, still waiting until nexus becomes ready", counter)
+		log.Infof("nexus health check number %v failed, still waiting until nexus becomes ready", counter)
 	}
 	err := watcher.WaitUntilHealthy(checker)
 	if err != nil {

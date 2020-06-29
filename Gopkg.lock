@@ -66,6 +66,14 @@
   version = "v1.0.2"
 
 [[projects]]
+  digest = "1:5b3b29ce0e569f62935d9541dff2e16cc09df981ebde48e82259076a73a3d0c7"
+  name = "github.com/op/go-logging"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "b2cb9fa56473e98db8caba80237377e83fe44db5"
+  version = "v1"
+
+[[projects]]
   digest = "1:808cdddf087fb64baeae67b8dfaee2069034d9704923a3cb8bd96a995421a625"
   name = "github.com/patrickmn/go-cache"
   packages = ["."]
@@ -139,7 +147,7 @@
     "github.com/cloudogu/carp",
     "github.com/cloudogu/go-health",
     "github.com/cloudogu/nexus-scripting/manager",
-    "github.com/golang/glog",
+    "github.com/op/go-logging",
     "github.com/pkg/errors",
     "github.com/stretchr/testify/assert",
   ]
