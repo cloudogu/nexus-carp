@@ -35,7 +35,7 @@ func main() {
 
 	log = logging.MustGetLogger("nexus-carp")
 
-	log.Infof("wait until nexus is ready")
+	log.Info("wait until nexus is ready")
 	err = waitUntilNexusBecomesReady(url, username, password)
 	if err != nil {
 		log.Fatal("nexus does not become ready:", err)
@@ -89,7 +89,7 @@ func waitUntilNexusBecomesReady(url string, username string, password string) er
 	watcher := health.NewWatcher()
 	watcher.RecheckLimit = 300
 	watcher.ResultListener = func(counter int, err error) {
-		log.Infof("nexus health check number %v failed, still waiting until nexus becomes ready", counter)
+		log.Infof("nexus health check number %d failed, still waiting until nexus becomes ready", counter)
 	}
 	err := watcher.WaitUntilHealthy(checker)
 	if err != nil {
