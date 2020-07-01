@@ -17,7 +17,7 @@ import (
 
 var Version = "x.y.z-dev"
 
-var log *logging.Logger
+var log = logging.MustGetLogger("nexus-carp")
 
 func main() {
 	flag.Parse()
