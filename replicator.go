@@ -4,9 +4,8 @@ package main
 import (
 	"github.com/cloudogu/carp"
 	"github.com/cloudogu/nexus-scripting/manager"
-	"github.com/golang/glog"
 	"github.com/pkg/errors"
-  "strings"
+	"strings"
 )
 
 const scriptName = "carp-user-replication"
@@ -25,8 +24,8 @@ type UserReplicator struct {
 }
 
 func (replicator *UserReplicator) CreateScript(cesAdminGroup string) error {
-  userReplicationScript := CARP_USER_REPLICATION
-  userReplicationScript = strings.Replace(userReplicationScript, "cesAdminGroup", cesAdminGroup, -1)
+	userReplicationScript := CARP_USER_REPLICATION
+	userReplicationScript = strings.Replace(userReplicationScript, "cesAdminGroup", cesAdminGroup, -1)
 	script, err := replicator.manager.Create(scriptName, userReplicationScript)
 	if err != nil {
 		return errors.Wrap(err, "failed to create user replication script")
@@ -43,8 +42,8 @@ func (replicator *UserReplicator) Replicate(username string, attributes carp.Use
 		return errors.Wrapf(err, "user replication script failed for user %s", nexusUser.Username)
 	}
 
-	if out != "" && glog.V(2) {
-		glog.Infof("user replication script returned %s for user %s", out, nexusUser.Username)
+	if out != "" {
+		log.Infof("user replication script returned %s for user %s", out, nexusUser.Username)
 	}
 	return nil
 }

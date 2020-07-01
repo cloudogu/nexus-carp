@@ -4,8 +4,7 @@ CAS Authentication Reverse Proxy for Sonatype Nexus.
 
 ## Requirements
 
-* [Go](https://golang.org/) = 1.9.x
-* [Dep](https://golang.github.io/dep/)
+* [Go](https://golang.org/) = 1.11.x
 
 ## Testing and Development
 
@@ -34,6 +33,7 @@ cd nexus-carp
 ```
 * Build
 ```bash
+export GO111MODULE=on
 make
 ```
 * Run
