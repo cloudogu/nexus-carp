@@ -42,7 +42,7 @@ func (replicator *UserReplicator) Replicate(username string, attributes carp.Use
 		return errors.Wrapf(err, "user replication script failed for user %s", nexusUser.Username)
 	}
 
-	if out != "" /*&& glog.V(2) //TODO: which condition should be used instead?*/ {
+	if out != "" {
 		log.Infof("user replication script returned %s for user %s", out, nexusUser.Username)
 	}
 	return nil
