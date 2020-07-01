@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.0.0] - 2020-07-01
 ### Changed
 - Changed logger to go-logging instead of glog
 - Changed log output format
