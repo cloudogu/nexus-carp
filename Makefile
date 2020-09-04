@@ -11,6 +11,7 @@ include build/make/variables.mk
 include build/make/self-update.mk
 include build/make/clean.mk
 include build/make/dependencies-gomod.mk
+include build/make/digital-signature.mk
 
 generate:
 	go generate
@@ -20,7 +21,7 @@ setup: generate dependencies
 $(BINARY): setup
 	CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-X main.Version=${VERSION} -extldflags "-static"' -o $(BINARY) .
 
-build: $(BINARY)
+build: $(BINARY) signature
 
-package: build
+package: build signature
 	cd ${TARGETDIR}; tar cvfz ${PKG} ${ARTIFACT_ID}
