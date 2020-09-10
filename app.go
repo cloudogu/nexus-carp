@@ -36,9 +36,9 @@ func main() {
 	log = logging.MustGetLogger("nexus-carp")
 
 	log.Info("wait until nexus is ready")
-	err = waitUntilNexusBecomesReady(url, username, password)
+	err = waitUntilNexusBecomesReady()
 	if err != nil {
-		log.Fatal("nexus does not become ready:", err)
+		log.Fatal("nexus did not become ready:", err)
 	}
 
 	log.Infof("start nexus-carp %s", Version)
@@ -80,11 +80,8 @@ func env(key string) string {
 	return value
 }
 
-func waitUntilNexusBecomesReady(url string, username string, password string) error {
-	checker := health.NewHTTPHealthCheckBuilder(url+"/service/metrics/healthcheck").
-		WithMethod("GET").
-		WithBasicAuth(username, password).
-		Build()
+func waitUntilNexusBecomesReady() error {
+	checker := health.NewTCPHealthCheckBuilder(8081).Build()
 
 	watcher := health.NewWatcher()
 	watcher.RecheckLimit = 300

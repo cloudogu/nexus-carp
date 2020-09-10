@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.2.0]
+### Changed
+- Use port 8081 for nexus health check as the Nexus healthcheck endpoint throws a server error on any failed health check; #10
+
 ## [v1.1.0] - 2020-09-04
 ### Changed
 - Upgrade to carp v1.1.0; #8
