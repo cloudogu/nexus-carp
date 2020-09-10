@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Use port 8081 for nexus health check; #10
+- Use port 8081 for nexus health check as the Nexus healthcheck endpoint throws a server error on any failed health check; #10
 
 ## [v1.1.0] - 2020-09-04
 ### Changed
