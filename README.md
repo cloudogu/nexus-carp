@@ -29,6 +29,7 @@ docker-compose up -d
 ```
 * open Nexus at http://localhost:8081
 * sign in with admin and admin123
+* finish the initialization wizard  
 * enable "Rut Auth Realm" (settings at Security -> Realms)
 * Add "Rut Auth" Capability with `X-CARP-Authentication` as Header (settings at System -> Capabilities -> Create Capability)
 
