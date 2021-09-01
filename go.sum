@@ -1,5 +1,11 @@
 github.com/cloudogu/carp v1.1.0 h1:1dCK7UgQM1nWg4eQRheoom9lDwPWoR9EJ621Ww2eFx0=
 github.com/cloudogu/carp v1.1.0/go.mod h1:nXXguN7zD/KMzU6dSMOhUtIRfZlhq2VAp1IGKeB2iW4=
+github.com/cloudogu/carp v1.1.1-0.20210831130923-7dfcf6ce42be h1:02R+OI6bzjqE6JaQgVNt+Q89r0EJ8Xo2u9Bg3KyTRxM=
+github.com/cloudogu/carp v1.1.1-0.20210831130923-7dfcf6ce42be/go.mod h1:nXXguN7zD/KMzU6dSMOhUtIRfZlhq2VAp1IGKeB2iW4=
+github.com/cloudogu/carp v1.1.1-0.20210831135450-369db591de80 h1:MSGBpSuii3lmtoFDvYIaE6FclXBuSdwoD9LU9Uhg4CI=
+github.com/cloudogu/carp v1.1.1-0.20210831135450-369db591de80/go.mod h1:nXXguN7zD/KMzU6dSMOhUtIRfZlhq2VAp1IGKeB2iW4=
+github.com/cloudogu/carp v1.1.1-0.20210901080706-1ee19b443b8c h1:ccWsUjnO0COoH8vRqfHs4BZdSjLOGskdfbdZlVjNx7g=
+github.com/cloudogu/carp v1.1.1-0.20210901080706-1ee19b443b8c/go.mod h1:nXXguN7zD/KMzU6dSMOhUtIRfZlhq2VAp1IGKeB2iW4=
 github.com/cloudogu/go-cas v2.2.2+incompatible h1:W8RYzsNQmCFvfVmA2HAUoBVUr4R32uh+TlJ7p3dX1nk=
 github.com/cloudogu/go-cas v2.2.2+incompatible/go.mod h1:9qWvEnURAu/PtZFvpi/sEbPAKBn0VAhs73NlQfTcXWw=
 github.com/cloudogu/go-health v0.0.0-20180424113502-e96095b4c224 h1:7zMzmEcgHumtT5DJgCzdq6+UZzyEPHGScCCbW43hbJ4=
