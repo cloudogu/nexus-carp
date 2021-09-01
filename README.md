@@ -10,7 +10,7 @@ CAS Authentication Reverse Proxy (CARP) for Sonatype Nexus.
 
 * start Cloudogu EcoSystem
 * install at least CAS-Dogu
-* enable development mode and restart CAS
+* enable development mode and restart CAS in your Cloudogu EcoSystem
 ```bash
 etcdctl set /config/_global/stage development
 cesapp stop cas
@@ -28,11 +28,21 @@ cd nexus-carp
 docker-compose up -d
 ```
 * open Nexus at http://localhost:8081
-* sign in with admin and admin123
-* finish the initialization wizard  
+* sign in with following credentials:
+  * Username: admin
+  * Password: read out from Docker container via
+
+    ```docker exec -it nexus-carp_nexus_1 cat /nexus-data/admin.password```
+* finish the initialization wizard (remember the password)  
 * enable "Rut Auth Realm" (settings at Security -> Realms)
 * Add "Rut Auth" Capability with `X-CARP-Authentication` as Header (settings at System -> Capabilities -> Create Capability)
-
+* Add property that allows to add scripts to Nexus and restart container
+```
+docker exec -it nexus-carp_nexus_1 bash
+echo "nexus.scripts.allowCreation=true" >> /nexus-data/etc/nexus.properties
+exit
+docker-compose restart
+```
 
 * Build
 ```bash
@@ -40,11 +50,11 @@ export GO111MODULE=on
 make
 ```
 
-* Set required environment variables
+* Set required environment variables (use the password you set in the wizard at the first start)
 ```bash
 export NEXUS_URL="http://localhost:8081"
 export NEXUS_USER="admin"
-export NEXUS_PASSWORD="admin123"
+export NEXUS_PASSWORD="admin123" 
 export CES_ADMIN_GROUP="cesAdmins"
 ```
 
