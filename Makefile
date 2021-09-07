@@ -1,5 +1,5 @@
 ARTIFACT_ID=nexus-carp
-VERSION=1.2.0
+VERSION=1.3.0
 
 TARGETDIR=target
 PKG=${ARTIFACT_ID}-${VERSION}.tar.gz
