@@ -2,10 +2,11 @@
 package main
 
 import (
+	"strings"
+
 	"github.com/cloudogu/carp"
 	"github.com/cloudogu/nexus-scripting/manager"
 	"github.com/pkg/errors"
-	"strings"
 )
 
 const scriptName = "carp-user-replication"
@@ -36,7 +37,7 @@ func (replicator *UserReplicator) CreateScript(cesAdminGroup string) error {
 }
 
 func (replicator *UserReplicator) Replicate(username string, attributes carp.UserAttibutes) error {
-	nexusUser := createNexusCarpUser(attributes)
+	nexusUser := createNexusCarpUser(username, attributes)
 	out, err := replicator.script.ExecuteWithJSONPayload(nexusUser)
 	if err != nil {
 		return errors.Wrapf(err, "user replication script failed for user %s", nexusUser.Username)
@@ -48,13 +49,14 @@ func (replicator *UserReplicator) Replicate(username string, attributes carp.Use
 	return nil
 }
 
-func createNexusCarpUser(attributes carp.UserAttibutes) *NexusCarpUser {
+func createNexusCarpUser(username string, attributes carp.UserAttibutes) *NexusCarpUser {
 	return &NexusCarpUser{
-		Username:  firstOrEmpty(attributes["username"]),
-		FirstName: firstOrEmpty(attributes["givenName"]),
-		LastName:  firstOrEmpty(attributes["surname"]),
-		Email:     firstOrEmpty(attributes["mail"]),
-		Groups:    attributes["groups"],
+		Username:          username,
+		PreferredUsername: firstOrEmpty(attributes["username"]),
+		FirstName:         firstOrEmpty(attributes["givenName"]),
+		LastName:          firstOrEmpty(attributes["surname"]),
+		Email:             firstOrEmpty(attributes["mail"]),
+		Groups:            attributes["groups"],
 	}
 }
 
@@ -66,9 +68,10 @@ func firstOrEmpty(values []string) string {
 }
 
 type NexusCarpUser struct {
-	Username  string
-	FirstName string
-	LastName  string
-	Email     string
-	Groups    []string
+	Username          string
+	PreferredUsername string
+	FirstName         string
+	LastName          string
+	Email             string
+	Groups            []string
 }
