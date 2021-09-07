@@ -6,8 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
-- Forwarding no longer worked successfully with CAS 6. This is now fixed.
-  The error is fixed by using a new version of the CARP library. #12
+- Forwarding no longer worked successfully with CAS 6 in combination with OIDC. This is now fixed
+  - When a user logs in via OIDC, a separate, unique user ID is transmitted by the OIDC provider. 
+    This user ID is now used as username (and at the same time as a unique ID).
 
 ## [v1.2.0]
 ### Changed
