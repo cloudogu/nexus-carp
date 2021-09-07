@@ -5,17 +5,17 @@ import (
 	"strings"
 
 	"github.com/cloudogu/carp"
-	"github.com/cloudogu/nexus-scripting/manager"
+	manager "github.com/cloudogu/nexus-scripting/manager"
 	"github.com/pkg/errors"
 )
 
 const scriptName = "carp-user-replication"
 
 func NewUserReplicator(url string, username string, password string, timeout int) *UserReplicator {
-	manager := manager.New(url, username, password)
-	manager.WithTimeout(timeout)
+	scriptManager := manager.New(url, username, password)
+	scriptManager.WithTimeout(timeout)
 	return &UserReplicator{
-		manager: manager,
+		manager: scriptManager,
 	}
 }
 
