@@ -13,7 +13,7 @@ def securitySystem = security.getSecuritySystem()
 def defaultRole = ['cesUser']
 
 try {
-  log.info('update user ' + carpUser.Username)
+  log.info('update user ' + carpUser)
   def user = securitySystem.getUser(carpUser.Username)
   user.setFirstName(carpUser.FirstName)
   user.setLastName(carpUser.LastName)
