@@ -20,7 +20,11 @@ var Version = "x.y.z-dev"
 var log = logging.MustGetLogger("nexus-carp")
 
 func main() {
-	log.Debug("Entering Function 'main'")
+	log.Debug("Entering Method 'main'")
+	defer func() {
+		log.Debug("End of Function 'main'")
+	}()
+
 	flag.Parse()
 
 	url := env("NEXUS_URL")
@@ -70,46 +74,53 @@ func main() {
 		panic(err)
 	}
 
-	log.Debug("End of Function 'main'")
 	server.ListenAndServe()
 }
 
 func getTimeoutOrDefault(variableName string, defaultValue int) int {
-	log.Debug("Entering Function 'getTimeoutOrDefault'")
+	log.Debug("Entering Method 'getTimeoutOrDefault'")
+	defer func() {
+		log.Debug("End of Function 'getTimeoutOrDefault'")
+	}()
+
 	log.Debugf("Param '%s'", variableName)
 	log.Debugf("Param '%s'", defaultValue)
 	value := os.Getenv(variableName)
 	log.Debugf("Variable: %s", value)
 	if value == "" {
 		log.Debugf("Condition true: 'value == \"\"'")
-		log.Debug("End of Function 'getTimeoutOrDefault'")
 		return defaultValue
 	}
 	timeoutFromEnv, err := strconv.Atoi(value)
 	log.Debugf("Variable: %s", timeoutFromEnv)
 	if err != nil {
 		log.Debugf("Error: %s", err.Error())
-		log.Debug("End of Function 'getTimeoutOrDefault'")
 		return defaultValue
 	}
-	log.Debug("End of Function 'getTimeoutOrDefault'")
 	return timeoutFromEnv
 }
 
 func env(key string) string {
-	log.Debug("Entering Function 'env'")
+	log.Debug("Entering Method 'env'")
+	defer func() {
+		log.Debug("End of Function 'env'")
+	}()
+
 	log.Debugf("Param '%s'", key)
 	value := os.Getenv(key)
 	if value == "" {
 		log.Debugf("Condition true: 'value == \"\"'")
 		log.Fatalf("environment variable %s is not set", key)
 	}
-	log.Debug("End of Function 'env'")
 	return value
 }
 
 func waitUntilNexusBecomesReady() error {
-	log.Debug("Entering Function 'waitUntilNexusBecomesReady'")
+	log.Debug("Entering Method 'waitUntilNexusBecomesReady'")
+	defer func() {
+		log.Debug("End of Function 'waitUntilNexusBecomesReady'")
+	}()
+
 	checker := health.NewTCPHealthCheckBuilder(8081).Build()
 	log.Debugf("Variable: %s", checker)
 
@@ -123,10 +134,8 @@ func waitUntilNexusBecomesReady() error {
 	err := watcher.WaitUntilHealthy(checker)
 	if err != nil {
 		log.Debugf("Error: %s", err.Error())
-		log.Debug("End of Function 'waitUntilNexusBecomesReady'")
 		return err
 	}
-	log.Debug("End of Function 'waitUntilNexusBecomesReady'")
 	return nil
 }
 
@@ -143,9 +152,12 @@ const injectedJSCodeTmpl = "<script>" +
 	"</script>"
 
 func getLogoutJSInjectResponseModifier(logoutUrl string) func(resp *http.Response) error {
-	log.Debug("Entering Function 'getLogoutJSInjectResponseModifier'")
+	log.Debug("Entering Method 'getLogoutJSInjectResponseModifier'")
+	defer func() {
+		log.Debug("End of Function 'getLogoutJSInjectResponseModifier'")
+	}()
+
 	log.Debugf("Param '%s'", logoutUrl)
-	log.Debug("End of Function 'getLogoutJSInjectResponseModifier'")
 	return func(resp *http.Response) error {
 		log.Debug("Entering Function 'func(resp *http.Response) error'")
 		if isJSInjectionRequired(resp) {
@@ -154,7 +166,6 @@ func getLogoutJSInjectResponseModifier(logoutUrl string) func(resp *http.Respons
 			log.Debugf("Variable: %s", b)
 			if err != nil {
 				log.Debugf("Error: %s", err.Error())
-				log.Debug("End of Function 'func(resp *http.Response) error'")
 				return err
 			}
 			injectedJSCode := fmt.Sprintf(injectedJSCodeTmpl, logoutUrl)
@@ -171,19 +182,21 @@ func getLogoutJSInjectResponseModifier(logoutUrl string) func(resp *http.Respons
 			log.Debugf("Variable: %s", resp.Header)
 		}
 
-		log.Debug("End of Function 'func(resp *http.Response) error'")
 		return nil
 	}
 }
 
 func isJSInjectionRequired(resp *http.Response) bool {
-	log.Debug("Entering Function 'isJSInjectionRequired'")
+	log.Debug("Entering Method 'isJSInjectionRequired'")
+	defer func() {
+		log.Debug("End of Function 'isJSInjectionRequired'")
+	}()
+
 	log.Debugf("Param '%s'", resp)
 	injectPaths := []string{"/nexus/", "/"}
 	log.Debugf("Variable: %s", injectPaths)
 	b := resp.Header.Get("Content-Type") == "text/html" && contains(injectPaths, resp.Request.URL.Path)
 	log.Debugf("Variable: %s", b)
-	log.Debug("End of Function 'isJSInjectionRequired'")
 	return b
 }
 
