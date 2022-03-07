@@ -53,7 +53,7 @@ func main() {
 	configuration.ResponseModifier = getLogoutJSInjectResponseModifier(configuration.CasUrl + "/logout")
 
 	logLevel := mapCesappLoglevelToGlogLoglevel(configuration.LogLevel)
-	fmt.Println(logLevel)
+
 	err = flag.Set("v", strconv.Itoa(logLevel))
 	if err != nil {
 		panic(err)
