@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v1.3.1] - 2022-03-09
 ### Added
-- log level mapping for enhanced logging  
+- log level mapping for enhanced logging #14  
 
 ## [v1.3.0]
 ### Fixed
