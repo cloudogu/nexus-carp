@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.3.1] - 2022-03-09
+### Added
+- log level mapping for enhanced logging  
+
 ## [v1.3.0]
 ### Fixed
 - Forwarding no longer worked successfully with CAS 6 in combination with OIDC. This is now fixed
