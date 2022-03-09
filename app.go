@@ -52,12 +52,35 @@ func main() {
 	configuration.UserReplicator = userReplicator.Replicate
 	configuration.ResponseModifier = getLogoutJSInjectResponseModifier(configuration.CasUrl + "/logout")
 
+	logLevel := mapCesappLoglevelToGlogLoglevel(configuration.LogLevel)
+
+	err = flag.Set("v", strconv.Itoa(logLevel))
+	if err != nil {
+		panic(err)
+	}
+
 	server, err := carp.NewServer(configuration)
 	if err != nil {
 		panic(err)
 	}
 
-	server.ListenAndServe()
+	err = server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
+}
+
+func mapCesappLoglevelToGlogLoglevel(cesappLoglevel string) (glogLogLevel int) {
+	var m map[string]int
+
+	m = map[string]int{
+		"ERROR": 0,
+		"WARN":  1,
+		"INFO":  2,
+		"DEBUG": 5,
+	}
+
+	return m[cesappLoglevel]
 }
 
 func getTimeoutOrDefault(variableName string, defaultValue int) int {
