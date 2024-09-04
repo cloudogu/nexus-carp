@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.4.0] - 2024-09-04
+### Changed
+- [#16] update carp version to v1.2.0
+  - This adds the ability to bypass CAS-authentication for certain non-browser-requests. Which prevents request-throttling in CAS for requests that only have dogu-internal authentication
+
 ## [v1.3.1] - 2022-03-09
 ### Added
 - log level mapping for enhanced logging #14  
