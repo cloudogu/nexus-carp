@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- [#16] update carp version to v1.2.0
+  - This adds the ability to bypass CAS-authentication for certain non-browser-requests. Which prevents request-throttling in CAS for requests that only have dogu-internal authentication
 
 ## [v1.3.1] - 2022-03-09
 ### Added
