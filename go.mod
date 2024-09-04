@@ -3,7 +3,7 @@ module github.com/cloudogu/nexus-carp
 go 1.23.0
 
 require (
-	github.com/cloudogu/carp v1.1.1-0.20240903104841-cd226c2913d7
+	github.com/cloudogu/carp v1.2.0
 	github.com/cloudogu/go-health v0.0.0-20180424113502-e96095b4c224
 	github.com/cloudogu/nexus-scripting v0.2.0
 	github.com/op/go-logging v0.0.0-20160211212156-b2cb9fa56473
