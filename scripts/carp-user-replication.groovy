@@ -2,6 +2,7 @@ import groovy.json.JsonSlurper
 import org.sonatype.nexus.security.user.UserNotFoundException
 import org.sonatype.nexus.security.role.*
 import org.apache.commons.lang.*
+import java.security.SecureRandom
 
 // parse json formatted carp user, which is send as argument for the script
 def carpUser = new JsonSlurper().parseText(args)
@@ -25,7 +26,8 @@ try {
 
   // user not found, create a new one
   // id, firstName, lastName, Email, active, password, arrayOfRoles
-  String randomUserPassword = org.apache.commons.lang.RandomStringUtils.random(16, true, true)
+  String VALID_PW_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"#\$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+  String randomUserPassword = org.apache.commons.lang.RandomStringUtilsRandomStringUtils.random(16, 0, VALID_PW_CHARS.length(), true, true, VALID_PW_CHARS.toCharArray(), new SecureRandom());
   security.addUser(carpUser.Username, carpUser.FirstName, carpUser.LastName, carpUser.Email, true, randomUserPassword, defaultRole)
 }
 
