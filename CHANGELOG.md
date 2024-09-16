@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
-- [#17] Fix an issue where a random password generator not used java.security.SecureRandom.
+- [#17] Random password generator did not use `java.security.SecureRandom`.
 
 ## [v1.4.0] - 2024-09-04
 ### Changed
