@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.4.1] - 2024-09-16
+### Fixed
+- [#17] Random password generator did not use `java.security.SecureRandom`.
+
 ## [v1.4.0] - 2024-09-04
 ### Changed
 - [#16] update carp version to v1.2.0
