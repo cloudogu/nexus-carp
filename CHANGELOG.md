@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.5.0] - 2024-09-18
+### Changed
+- Relicense to AGPL-3.0-only
+
 ## [v1.4.1] - 2024-09-16
 ### Fixed
 - [#17] Random password generator did not use `java.security.SecureRandom`.
