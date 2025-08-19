@@ -27,7 +27,7 @@ try {
 
   // user not found, create a new one
   // id, firstName, lastName, Email, active, password, arrayOfRoles
-  String VALID_PW_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"#\$%&'()*+,-./:;<=>?@[\\]^_` + "`" + `{|}~";
+  String VALID_PW_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"#\$%&'()*+,-./:;<=>?@[\\]^_` + "`" +`{|}~";
   String randomUserPassword = org.apache.commons.lang.RandomStringUtils.random(16, 0, VALID_PW_CHARS.length(), true, true, VALID_PW_CHARS.toCharArray(), new SecureRandom());
   security.addUser(carpUser.Username, carpUser.FirstName, carpUser.LastName, carpUser.Email, true, randomUserPassword, defaultRole)
 }
