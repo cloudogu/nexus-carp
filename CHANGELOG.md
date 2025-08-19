@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.6.0] - 2025-08-19
+### Changed
+- [#22] Update user replication script for compatibility with nexus 3.82
+
 ## [v1.5.0] - 2024-09-18
 ### Changed
 - Relicense to AGPL-3.0-only
