@@ -120,7 +120,7 @@ func waitUntilNexusBecomesReady() error {
 
 const injectedJSCodeTmpl = "<script>" +
 	"var timer = setInterval(function () {" +
-	"var signoutElements = document.querySelectorAll(\"span[id^='nx-header-signout-']\");" +
+	"var signoutElements = document.querySelectorAll(\"header.nxrm-global-header div.nx-dropdown-menu button.nx-dropdown-button\");" +
 	"if (signoutElements.length == 0) { return; }" +
 	"signoutElements[0].addEventListener('click', function () { " +
 	"window.location.href = '%s';" +
