@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.6.1] - 2026-02-16
+### Security
+- [#24] Update to go version 1.26.0 to fix CVE-2025-68121
+
+### Changed
+- [#24] Update makefiles
+
 ## [v1.6.0] - 2025-08-19
 ### Changed
 - [#22] Update user replication script for compatibility with nexus 3.82
