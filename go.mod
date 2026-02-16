@@ -1,6 +1,6 @@
 module github.com/cloudogu/nexus-carp
 
-go 1.23.0
+go 1.26.0
 
 require (
 	github.com/cloudogu/carp v1.2.0
