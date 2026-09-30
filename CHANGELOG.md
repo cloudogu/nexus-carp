@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.7.0] - 2026-09-30
+### Changed
+- [#29] Update front-channel logout for compatibility with nexus 3.96
+
 ## [v1.6.2] - 2026-09-30
 ### Fixed
 - [#27] Update Apache commons-lang from 2 to 3
