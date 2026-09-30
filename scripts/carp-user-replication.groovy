@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurper
 import org.sonatype.nexus.security.user.UserNotFoundException
 import org.sonatype.nexus.security.role.*
-import org.apache.commons.lang.*
+import org.apache.commons.lang3.*
 import java.security.SecureRandom
 import org.sonatype.nexus.security.SecuritySystem
 
@@ -28,7 +28,7 @@ try {
   // user not found, create a new one
   // id, firstName, lastName, Email, active, password, arrayOfRoles
   String VALID_PW_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"#\$%&'()*+,-./:;<=>?@[\\]^_` + "`" +`{|}~";
-  String randomUserPassword = org.apache.commons.lang.RandomStringUtils.random(16, 0, VALID_PW_CHARS.length(), true, true, VALID_PW_CHARS.toCharArray(), new SecureRandom());
+  String randomUserPassword = org.apache.commons.lang3.RandomStringUtils.random(16, 0, VALID_PW_CHARS.length(), true, true, VALID_PW_CHARS.toCharArray(), new SecureRandom());
   security.addUser(carpUser.Username, carpUser.FirstName, carpUser.LastName, carpUser.Email, true, randomUserPassword, defaultRole)
 }
 

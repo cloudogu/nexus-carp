@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.6.2] - 2026-09-30
+### Fixed
+- [#27] Update Apache commons-lang from 2 to 3
+
 ## [v1.6.1] - 2026-02-16
 ### Security
 - [#24] Update to go version 1.26.0 to fix CVE-2025-68121
