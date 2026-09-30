@@ -118,16 +118,16 @@ func waitUntilNexusBecomesReady() error {
 	return nil
 }
 
+// The sign out entry only exists while the header menu is open, so the listener
+// is delegated to the document instead of bound to the element itself. Nexus
+// ends its own session asynchronously, so the redirect to the CAS logout is
+// deferred to give that request time to reach carp.
 const injectedJSCodeTmpl = "<script>" +
-	"var timer = setInterval(function () {" +
-	"var signoutElements = document.querySelectorAll(\"header.nxrm-global-header div.nx-dropdown-menu button.nx-dropdown-button\");" +
-	"if (signoutElements.length == 0) { return; }" +
-	"signoutElements[0].addEventListener('click', function () { " +
-	"window.location.href = '%s';" +
-	"return true;" +
-	"});" +
-	"clearInterval(timer);" +
-	"}, 500);" +
+	"document.addEventListener('click', function (e) {" +
+	"if (!e.target || !e.target.closest) { return; }" +
+	"if (!e.target.closest('[data-analytics-id=\"nxrm-header-sign-out\"]')) { return; }" +
+	"setTimeout(function () { window.location.href = '%s'; }, 1000);" +
+	"}, true);" +
 	"</script>"
 
 func getLogoutJSInjectResponseModifier(logoutUrl string) func(resp *http.Response) error {
